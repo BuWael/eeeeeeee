@@ -3,14 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "18.x" 
+  },
   "scripts": {
-    "start": "nodemon"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@discordjs/rest": "^2.2.0",
-    "@discordjs/voice": "^0.16.0",
+    "@discordjs/voice": "^0.16.1",
     "@napi-rs/canvas": "^0.1.44",
     "canvas": "^2.11.2",
     "canvas-constructor": "^7.0.1",
@@ -30,7 +33,6 @@
     "moment": "^2.29.4",
     "mongoose": "^7.6.2",
     "node-fetch": "^2.6.1",
-    "nodemon": "^3.1.0",
     "pretty-ms": "^8.0.0",
     "pro.db": "^3.0.8",
     "random-words": "^2.0.1",
