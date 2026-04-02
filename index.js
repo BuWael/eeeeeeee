@@ -31,7 +31,7 @@ client.slashCommands = new Collection();
 client.config = require(`${process.cwd()}/config`);
 require("./events")(client);
 client.prefix = prefix;
-client.login(config.token);
+client.login(process.env.DISCORD_TOKEN);
 client.on("ready", async () => {
   console.log(`Name : ${client.user.tag}
 Ping : ${client.ws.ping}
