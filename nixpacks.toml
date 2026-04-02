@@ -1,2 +1,20 @@
 [phases.setup]
-nixPkgs = ["nodePackages.npm", "pkg-config", "pixman", "cairo", "pango", "libjpeg", "giflib", "python3", "gnumake", "gcc"]
+nixPkgs = [
+    "nodejs_22",
+    "pkg-config",
+    "pixman",
+    "cairo",
+    "pango",
+    "libjpeg",
+    "giflib",
+    "python3",
+    "gcc",
+    "gnumake"
+]
+
+[phases.build]
+dependsOn = ["setup"]
+cmds = ["npm install"]
+
+[start]
+cmd = "node index.js"
