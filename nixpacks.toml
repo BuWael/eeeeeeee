@@ -1,0 +1,2 @@
+[phases.setup]
+nixPkgs = ["nodePackages.npm", "pkg-config", "pixman", "cairo", "pango", "libjpeg", "giflib", "python3", "gnumake", "gcc"]
