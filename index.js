@@ -1,43 +1,34 @@
 require('dotenv').config();
 const fs = require('fs');
-const { Client, intents, Collection, MessageEmbed, MessageAttachment, MessageActionRow, MessageButton, MessageSelectMenu, Modal, TextInputComponent, VoiceChannel } = require("discord.js");
-const client = new Client({ intents: 32767 })
+const { Client, Collection, MessageActionRow, MessageButton, TextInputComponent, Modal } = require("discord.js");
 const express = require('express');
-const { exec } = require('child_process'); // استيراد exec من child_process
-
-client.on('error', error => console.log(error));
-client.on('warn', info => console.log(info));
-process.on('unhandledRejection', (reason, p) => {
- console.log(reason.stack ? reason.stack : reason) });
-process.on("uncaughtException", (err, origin) => {
-  console.log(err.stack ? err.stack : err) })
-process.on('uncaughtExceptionMonitor', (err, origin) => {
-  console.log(err.stack ? err.stack : err) });
-  
-client.on("disconnecting", () => client.log("Bot is disconnecting...", "warn"))
-.on("reconnecting", () => client.log("Bot reconnecting...", "log"))
-.on("error", (e) => client.log(e, "error"))
-.on("warn", (info) => client.log(info, "warn"));
-
+const { exec } = require('child_process');
 const ms = require("ms");
-const Discord = require("discord.js")
-const canvas = require('canvas')
+const canvas = require('canvas');
 const db = require('pro.db');
-const config = require(`${process.cwd()}/config`);
-module.exports = client;
+
+// 1. استدعاء الإعدادات أولاً وقبل كل شيء
+const config = require('./config.json'); 
+const prefix = config.prefix;
+const owners = config.owners;
+
+// 2. تعريف البوت
+const client = new Client({ intents: 32767 });
+
+// 3. منع توقف البوت عند الأخطاء
+process.on('unhandledRejection', error => console.log(error));
+process.on('uncaughtException', error => console.log(error));
+
 client.commands = new Collection();
 client.slashCommands = new Collection();
-client.config = require(`${process.cwd()}/config`);
-require("./events")(client);
+client.config = config;
 client.prefix = prefix;
-client.login(process.env.DISCORD_TOKEN);
-client.on("ready", async () => {
-  console.log(`Name : ${client.user.tag}
-Ping : ${client.ws.ping}
-Prefix : ${client.prefix}
-ID : ${client.user.id}
-Server : ${client.guilds.cache.size}
-Members : ${client.users.cache.size}
+
+// 4. تشغيل الأحداث (الـ Events)
+require("./events")(client);
+
+// 5. نقل سطر الـ login ليكون بعد تعريف كل شيء
+// (ملاحظة: تأكد أنك حذفت سطر client.login(process.env.DISCORD_TOKEN) من وسط الكود)
 Channels : ${client.channels.cache.size}`)
 });
 
