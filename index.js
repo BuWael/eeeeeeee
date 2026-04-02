@@ -7,15 +7,15 @@ const ms = require("ms");
 const canvas = require('canvas');
 const db = require('pro.db');
 
-// 1. استدعاء الإعدادات أولاً وقبل كل شيء
+// استدعاء الإعدادات
 const config = require('./config.json'); 
 const prefix = config.prefix;
 const owners = config.owners;
 
-// 2. تعريف البوت
+// تعريف البوت
 const client = new Client({ intents: 32767 });
 
-// 3. منع توقف البوت عند الأخطاء
+// منع توقف البوت عند الأخطاء
 process.on('unhandledRejection', error => console.log(error));
 process.on('uncaughtException', error => console.log(error));
 
@@ -24,20 +24,8 @@ client.slashCommands = new Collection();
 client.config = config;
 client.prefix = prefix;
 
-// 4. تشغيل الأحداث (الـ Events)
+// تشغيل الأحداث
 require("./events")(client);
-
-// 5. نقل سطر الـ login ليكون بعد تعريف كل شيء
-// (ملاحظة: تأكد أنك حذفت سطر client.login(process.env.DISCORD_TOKEN) من وسط الكود)
-Channels : ${client.channels.cache.size}`)
-});
-
-client.on('guildCreate', (guild) => {
-    if (guild.id !== config.Guild) {
-      guild.leave()
-  }
-  
-  });
 
 client.on('messageCreate', async (message) => {
     if (message.author.bot || !message.guild) return;
@@ -428,3 +416,4 @@ client.on('interactionCreate', async interaction => {
         }
     }
 });
+client.login(process.env.DISCORD_TOKEN);
