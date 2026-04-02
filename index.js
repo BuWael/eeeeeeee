@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require('fs');
 const { Client, intents, Collection, MessageEmbed, MessageAttachment, MessageActionRow, MessageButton, MessageSelectMenu, Modal, TextInputComponent, VoiceChannel } = require("discord.js");
 const client = new Client({ intents: 32767 })
@@ -18,13 +19,11 @@ client.on("disconnecting", () => client.log("Bot is disconnecting...", "warn"))
 .on("error", (e) => client.log(e, "error"))
 .on("warn", (info) => client.log(info, "warn"));
 
-require('dotenv').config()
 const ms = require("ms");
 const Discord = require("discord.js")
 const canvas = require('canvas')
 const db = require('pro.db');
 const config = require(`${process.cwd()}/config`);
-const { prefix, owners, Guild } = require(`${process.cwd()}/config`);
 module.exports = client;
 client.commands = new Collection();
 client.slashCommands = new Collection();
